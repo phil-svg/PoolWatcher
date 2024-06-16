@@ -35,4 +35,4 @@ await runCycle();
 setInterval(async () => {
     await runCycle();
 }, 3600000); // 3600000 milliseconds = 1 hour
-//# sourceMappingURL=PoolWatcher.js.map
+//# sourceMappingURL=App.js.map
