@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { baseUrl } from '../App.js';
+import { baseUrl } from '../PoolWatcher.js';
 import { PoolData } from './Interfaces.js';
 
 export async function getPoolLaunchesLast7Days(): Promise<PoolData[] | null> {

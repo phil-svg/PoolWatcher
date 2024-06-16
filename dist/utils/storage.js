@@ -12,4 +12,4 @@ export function storeNotifiedAddress(address) {
     addresses.push(address);
     fs.writeFileSync(FILE_PATH, JSON.stringify(addresses));
 }
-//# sourceMappingURL=storage.js.map
+//# sourceMappingURL=Storage.js.map
