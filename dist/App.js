@@ -1,7 +1,7 @@
 import { getPoolLaunchesLast7Days } from './utils/InfoGetter.js';
 import { postOnX } from './utils/X.js';
 import { formatText } from './utils/Formatting.js';
-import { getNotifiedAddresses, storeNotifiedAddress } from './utils/temp.js';
+import { getNotifiedAddresses, storeNotifiedAddress } from './utils/Storage.js';
 // export const baseUrl = 'http://localhost:443';
 export const baseUrl = 'https://api.curvemonitor.com';
 async function runCycle() {
