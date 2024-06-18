@@ -1,6 +1,5 @@
-import { countTwitterPostCharacters, extractPoolName, generateSearchURL } from './Formatting.js';
+import { countTwitterPostCharacters, extractPoolName, getCurvePoolLink } from './Formatting.js';
 import { PoolData } from './Interfaces.js';
-import { getTokenName } from './Web3.js';
 
 export function tryFixingPostLengthByRemovingXSearchLinks(text: string): string {
   // Regex to find all occurrences of 'x.com/search?q=' URLs inside the parentheses
@@ -54,7 +53,7 @@ export async function tryFixingPostLengthByRemovingFeaturing(launch: PoolData): 
   // Construct the tweet text with organized sections
   let tweetText =
     `${extractPoolName(launch.name)} (${launch.source_address_description}) has launched on @CurveFinance!\n\n` +
-    `Explore the pool here: https://curve.fi/#/ethereum/pools?search=${launch.address}\n\n` +
+    `Explore the pool here: ${await getCurvePoolLink(launch.address)}\n\n` +
     `${hashtags}`;
 
   return tweetText;
@@ -67,7 +66,7 @@ export async function tryFixingPostLengthByRemovingMax(launch: PoolData): Promis
   // Construct the tweet text with organized sections
   let tweetText =
     `New Pool has launched on @CurveFinance!\n\n` +
-    `Explore the pool here: https://curve.fi/#/ethereum/pools?search=${launch.address}\n\n`;
+    `Explore the pool here: ${await getCurvePoolLink(launch.address)}\n\n`;
 
   return tweetText;
 }

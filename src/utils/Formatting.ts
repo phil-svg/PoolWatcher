@@ -40,6 +40,33 @@ export function extractPoolName(fullName: string): string {
   return fullName;
 }
 
+export async function getCurvePoolLink(address: string): Promise<string> {
+  const url = 'https://api.curve.fi/api/getPools/all/ethereum';
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error('Failed to fetch pool data');
+    }
+
+    const normalizedAddress = address.toLowerCase();
+
+    const pool = data.data.poolData.find(
+      (pool: { address: string }) => pool.address.toLowerCase() === normalizedAddress
+    );
+
+    if (pool && pool.poolUrls && pool.poolUrls.swap && pool.poolUrls.swap.length > 0) {
+      return pool.poolUrls.swap[0];
+    } else {
+      return `https://curve.fi/#/ethereum/pools?hideSmallPools=false&search=${address}`;
+    }
+  } catch (error) {
+    console.error('Error fetching or processing data:', error);
+    return `https://curve.fi/#/ethereum/pools?hideSmallPools=false&search=${address}`;
+  }
+}
+
 export async function stage0(launch: PoolData): Promise<string | null> {
   // Generate hashtags from the coin symbols and ensure they are unique
   const hashtags = Array.from(new Set(launch.coins.map((coin) => `#${coin.symbol.replace(/[\W_]+/g, '')}`))).join(' ');
@@ -72,7 +99,7 @@ export async function stage0(launch: PoolData): Promise<string | null> {
   let tweetText =
     `${extractPoolName(launch.name)} (${launch.source_address_description}) has launched on @CurveFinance!\n\n` +
     `Featuring:\n${filteredFeatures.join('\n')}\n\n` +
-    `Explore the pool here: https://curve.fi/#/ethereum/pools?search=${launch.address}\n\n` +
+    `Explore the pool here: ${await getCurvePoolLink(launch.address)}\n\n` +
     `${hashtags}`;
 
   return tweetText;
