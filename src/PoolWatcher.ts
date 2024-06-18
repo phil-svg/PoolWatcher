@@ -39,4 +39,4 @@ async function processSingeLaunch(launch: PoolData): Promise<string | null> {
 await runCycle();
 setInterval(async () => {
   await runCycle();
-}, 3600000); // 3600000 milliseconds = 1 hour
+}, 600000); // 10min
