@@ -39,12 +39,12 @@ export async function getCurvePoolLink(address) {
             return pool.poolUrls.swap[0];
         }
         else {
-            return `https://curve.fi/#/ethereum/pools?hideSmallPools=false&search=${address}`;
+            return `https://www.curve.finance/dex/ethereum/pools?hideSmallPools=false&search=${address}`;
         }
     }
     catch (error) {
         console.error('Error fetching or processing data:', error);
-        return `https://curve.fi/#/ethereum/pools?hideSmallPools=false&search=${address}`;
+        return `https://www.curve.finance/dex/ethereum/pools?hideSmallPools=false&search=${address}`;
     }
 }
 export async function stage0(launch) {
